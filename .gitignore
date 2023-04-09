@@ -2,3 +2,8 @@
 __pycache__/
 
 venv/
+
+ddd*
+
+static/
+media/

@@ -33,17 +33,23 @@ class LogoutView(generics.GenericAPIView):
     permission_classes = ()
     # serializer_class = LogoutSerializer
 
-    def post(self, request, *args, **kwargs):
-        # serializer = self.get_serializer(data=request.data)
-        # serializer.is_valid()
-        # 
-        # access_token = serializer.validated_data["access_token"]
-        # refresh_token = serializer.validated_data["refresh_token"]
-        # 
-        # BlacklistToken(access_token)
-        # BlacklistToken(refresh_token)
+    def dispatch(self, request, *args, **kwargs):
+        response = super(LogoutView, self).dispatch(request, *args, **kwargs)
+        response.delete_cookie('jwt_refresh')
+        response.delete_cookie('jwt_access')
+        return response
 
-        return response.Response(data={"message": "Logout successful"}, status=status.HTTP_200_OK)
+    # def post(self, request, *args, **kwargs):
+    #     # serializer = self.get_serializer(data=request.data)
+    #     # serializer.is_valid()
+    #     #
+    #     # access_token = serializer.validated_data["access_token"]
+    #     # refresh_token = serializer.validated_data["refresh_token"]
+    #     #
+    #     # BlacklistToken(access_token)
+    #     # BlacklistToken(refresh_token)
+    #
+    #     return response.Response(data={"message": "Logout successful"}, status=status.HTTP_200_OK)
 
 
 class RegistrationView(generics.GenericAPIView):

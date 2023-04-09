@@ -13,7 +13,7 @@ class Country(models.Model):
 class City(models.Model):
     code = models.IntegerField('Код города', unique=True)
     name = models.CharField('Город', max_length=255)
-    country = models.ForeignKey(Country, verbose_name='Страна', on_delete=models.PROTECT)
+    country = models.ForeignKey(Country, verbose_name='Страна', on_delete=models.PROTECT, related_name='cities')
 
     def __str__(self):
         return self.name
@@ -22,7 +22,7 @@ class City(models.Model):
 class Station(models.Model):
     name = models.CharField('Название вокзала', max_length=255)
     location = models.CharField('Локация', max_length=255)
-    city = models.ForeignKey(City,  verbose_name='Город', on_delete=models.PROTECT)
+    city = models.ForeignKey(City,  verbose_name='Город', on_delete=models.PROTECT, related_name='stations')
 
     def __str__(self):
         return self.name
